@@ -30,11 +30,151 @@
       <section id="employee-dashboard" class="card glass hidden">
         <h3>Employee Home</h3>
         <div class="stack">
-          <a class="btn pill" href="#client-panel">Create New Client Form</a>
+          <a class="btn pill" href="admin.html#client-panel" target="_blank">
+            Create New Client Form
+          </a>
         </div>
         <div class="dashboard-grid">
           <div class="card muted-card">
             <h4>Client Details & Changes</h4>
+            <form id="clientLookupForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="lookupClientId" required />
+              </label>
+              <button class="btn secondary" type="submit">View Details</button>
+            </form>
+            <div id="clientDetailsView" class="result hidden"></div>
+            <form id="clientUpdateForm" class="form hidden">
+              <p class="muted">Update Allowed Fields</p>
+              <label>
+                Name
+                <input type="text" id="updateClientName" />
+              </label>
+              <label>
+                Date of Birth
+                <input type="date" id="updateClientDob" />
+              </label>
+              <label>
+                Address
+                <input type="text" id="updateClientAddress" />
+              </label>
+              <label>
+                Mobile Number
+                <input type="tel" id="updateClientMobile" pattern="[0-9]{10}" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="updateClientEmail" />
+              </label>
+              <button class="btn primary" type="submit">Update Client Details</button>
+            </form>
+          </div>
+
+          <div class="card muted-card">
+            <h4>Transfer Client Balance to Bank</h4>
+            <p class="muted">Debit a client's account and credit the bank's account.</p>
+            <form id="clientToBankForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="bankTransferClientId" required />
+              </label>
+              <label>
+                Amount to Transfer (₹)
+                <input type="number" id="transferAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Transfer to Bank</button>
+            </form>
+            <p id="clientTransferMessage" class="status"></p>
+          </div>
+
+          <div class="card muted-card">
+            <h4>Client External Transfer (Initiate)</h4>
+            <p class="muted">
+              Transfer funds from a client's account to an external bank.
+            </p>
+            <form id="employeeExternalTransferForm" class="form">
+              <label>
+                Client ID (Sender - CLTxxxx)
+                <input type="text" id="employeeExternalSenderId" required />
+              </label>
+              <label>
+                Receiver Account Number
+                <input type="text" id="employeeExternalReceiverAccount" required />
+              </label>
+              <label>
+                IFSC Code
+                <input
+                  type="text"
+                  id="employeeExternalIfscCode"
+                  maxlength="11"
+                  required
+                />
+              </label>
+              <label>
+                Receiver Name
+                <input type="text" id="employeeExternalReceiverName" required />
+              </label>
+              <label>
+                Amount to Transfer (₹)
+                <input
+                  type="number"
+                  id="employeeExternalTransferAmount"
+                  min="1"
+                  required
+                />
+              </label>
+              <button class="btn primary" type="submit">
+                Transfer to Other Bank
+              </button>
+            </form>
+            <p id="employeeExternalTransferStatus" class="status"></p>
+          </div>
+
+          <div class="card muted-card">
+            <h4>Transaction Report (PDF Download)</h4>
+            <p class="muted">
+              Generate and download a PDF report of ALL bank transactions.
+            </p>
+            <form id="employeeReportForm" class="form">
+              <label>
+                Report Period
+                <select id="employeeReportPeriod" required>
+                  <option value="">-- Select Period --</option>
+                  <option value="daily">Last 1 Day</option>
+                  <option value="weekly">Last 1 Week</option>
+                  <option value="monthly">Last 1 Month</option>
+                  <option value="quarterly">Last 3 Months</option>
+                  <option value="halfyearly">Last 6 Months</option>
+                  <option value="yearly">Last 1 Year</option>
+                </select>
+              </label>
+              <button class="btn primary" type="submit">
+                Download Bank Transactions (PDF)
+              </button>
+            </form>
+            <div id="employeeReportResults" class="result hidden"></div>
+          </div>
+          
+          </div>
+      </section>
+
+      </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <div class="contact-details"></div>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      integrity="sha512-NaWTHo/8vQRVADADObCNoSV7BsrCnmStNFM34OjK4WuTdB4T/RJqaWc9Ypn0SAoZ91XAX+nePh... "
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>            <h4>Client Details & Changes</h4>
             <form id="clientLookupForm" class="form">
               <label>
                 Client ID
@@ -312,5 +452,6 @@
     <script src="app.js"></script>
   </body>
 </html>
+
 
 
