@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | All in One Money Bank</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="admin">
+    <header class="hero hero-sub">
+      <div class="hero__content">
+        <p class="eyebrow">Admin Console</p>
+        <h1>Hi, Arun Chandran</h1>
+        <p class="subtitle">
+          Manage employees, onboard clients, and monitor bank capital.
+        </p>
+        <div class="hero__cta">
+          <a class="btn" href="index.html">Switch User</a>
+          <a class="btn secondary" href="employee.html">Employee Portal</a>
+          <a class="btn secondary" href="client.html">Client Portal</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="admin-dashboard" class="card glass hidden">
+        <h2>Admin Tools</h2>
+        <div class="dashboard-grid">
+          <div class="inline-card">
+            <h4>Bank Capital</h4>
+            <p class="muted">View the bank's total available balance.</p>
+            <button class="btn primary" id="bankBalanceBtn">
+              View Bank Balance
+            </button>
+            <p id="bankBalanceDisplay" class="status"></p>
+          </div>
+
+          <div class="inline-card">
+            <h4>Credit Client Account</h4>
+            <p class="muted">Deposit funds into a client's account.</p>
+            <form id="adminCreditForm" class="form">
+              <label>
+                Client ID (CLTxxxx)
+                <input type="text" id="creditClientId" required />
+              </label>
+              <label>
+                Amount to Credit (₹)
+                <input type="number" id="creditAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Credit Funds</button>
+            </form>
+            <p id="adminCreditStatus" class="status"></p>
+          </div>
+
+          <div class="inline-card">
+            <h4>Client External Transfer (Initiate)</h4>
+            <p class="muted">
+              Transfer funds from a client's account to an external bank.
+            </p>
+            <form id="adminExternalTransferForm" class="form">
+              <label>
+                Client ID (Sender - CLTxxxx)
+                <input type="text" id="adminExternalSenderId" required />
+              </label>
+              <label>
+                Receiver Account Number
+                <input type="text" id="adminExternalReceiverAccount" required />
+              </label>
+              <label>
+                IFSC Code
+                <input
+                  type="text"
+                  id="adminExternalIfscCode"
+                  maxlength="11"
+                  required
+                />
+              </label>
+              <label>
+                Receiver Name
+                <input type="text" id="adminExternalReceiverName" required />
+              </label>
+              <label>
+                Amount to Transfer (₹)
+                <input
+                  type="number"
+                  id="adminExternalTransferAmount"
+                  min="1"
+                  required
+                />
+              </label>
+              <button class="btn primary" type="submit">
+                Transfer to Other Bank
+              </button>
+            </form>
+            <p id="adminExternalTransferStatus" class="status"></p>
+          </div>
+          
+          <div class="inline-card">
+            <h4>Bank Transaction Report (PDF Download)</h4>
+            <p class="muted">
+              Generate and download a PDF report of ALL bank transactions.
+            </p>
+            <form id="adminReportForm" class="form">
+              <label>
+                Report Period
+                <select id="adminReportPeriod" required>
+                  <option value="">-- Select Period --</option>
+                  <option value="daily">Last 1 Day</option>
+                  <option value="weekly">Last 1 Week</option>
+                  <option value="monthly">Last 1 Month</option>
+                  <option value="quarterly">Last 3 Months</option>
+                  <option value="halfyearly">Last 6 Months</option>
+                  <option value="yearly">Last 1 Year</option>
+                </select>
+              </label>
+              <button class="btn primary" type="submit">
+                Download Bank Transactions (PDF)
+              </button>
+            </form>
+            <div id="adminReportResults" style="display: none;"></div>
+          </div>
+          </div>
+
+        <h3>Records</h3>
+        <div class="dashboard-grid admin-grid">
+          <div class="inline-card" data-panel="employee-panel">
+            <button class="btn primary">Create Employee</button>
+          </div>
+          <div class="inline-card" data-panel="client-panel">
+            <button class="btn primary">Create Client</button>
+          </div>
+        </div>
+
+        <h4>Employee List</h4>
+        <div id="employeeList" class="record-list"></div>
+
+        <h4 style="margin-top: 2rem;">Client List</h4>
+        <div id="clientList" class="record-list"></div>
+      </section>
+
+      <section id="employee-panel" class="card glass hidden">
+        <h3>Create New Employee</h3>
+        <form id="employeeForm" class="form">
+          <label>
+            Employee ID (Auto Generated)
+            <input type="text" id="employeeId" readonly />
+          </label>
+          <div class="stack horizontal-stack">
+            <label>
+              Name
+              <input type="text" id="employeeName" required />
+            </label>
+            <label>
+              Age
+              <input type="number" id="employeeAge" min="18" max="60" required />
+            </label>
+          </div>
+          <label>
+            Position
+            <select id="employeePosition" required>
+              <option value="">-- Select Position --</option>
+              <option value="Manager">Manager</option>
+              <option value="Assistant Manager">Assistant Manager</option>
+              <option value="Casher">Casher</option>
+              <option value="Officer">Officer</option>
+              <option value="Assistant Officer">Assistant Officer</option>
+            </select>
+          </label>
+          <label>
+            Salary (Monthly)
+            <input type="number" id="employeeSalary" readonly required />
+          </label>
+          <div class="stack horizontal-stack">
+            <label>
+              Mobile Number
+              <input type="tel" id="employeeMobile" required />
+            </label>
+            <button
+              type="button"
+              class="btn secondary"
+              id="sendEmployeeOtp"
+              style="margin-top: 25px;"
+            >
+              Send OTP
+            </button>
+          </div>
+          <label>
+            OTP
+            <input type="text" id="employeeOtp" maxlength="6" required />
+          </label>
+          <label>
+            Address
+            <textarea id="employeeAddress" required></textarea>
+          </label>
+          <div class="stack horizontal-stack">
+            <label>
+              Email
+              <input type="email" id="employeeEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input type="text" id="employeeAadhaar" maxlength="12" required />
+            </label>
+          </div>
+          <label>
+            Upload Employee Photo
+            <input type="file" id="employeeImage" accept="image/*" />
+          </label>
+          <label>
+            Login Password (Auto Generated)
+            <input type="text" id="employeePassword" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Employee</button>
+        </form>
+        <div id="employeeResult" class="result hidden">
+          <h4>Employee Created</h4>
+          <pre id="employeeSummary"></pre>
+          <button class="btn secondary" id="downloadEmployeePdf">
+            Download Appointment (PDF)
+          </button>
+        </div>
+      </section>
+
+      <section id="client-panel" class="card glass hidden">
+        <h3>Create New Client Account</h3>
+        <form id="clientForm" class="form">
+          <label>
+            Client ID (Auto Generated)
+            <input type="text" id="clientId" readonly />
+          </label>
+          <div class="stack horizontal-stack">
+            <label>
+              Account Type
+              <select id="clientAccountType" required>
+                <option value="Savings">Savings Account</option>
+                <option value="Current">Current Account</option>
+              </select>
+            </label>
+            <label>
+              Name
+              <input type="text" id="clientName" required />
+            </label>
+          </div>
+          <div class="stack horizontal-stack">
+            <label>
+              Age
+              <input type="number" id="clientAge" min="18" required />
+            </label>
+            <label>
+              Date of Birth
+              <input type="date" id="clientDob" required />
+            </label>
+          </div>
+          <div class="stack horizontal-stack">
+            <label>
+              Mobile Number
+              <input type="tel" id="clientMobile" required />
+            </label>
+            <button
+              type="button"
+              class="btn secondary"
+              id="sendClientOtp"
+              style="margin-top: 25px;"
+            >
+              Send OTP
+            </button>
+          </div>
+          <label>
+            OTP
+            <input type="text" id="clientOtp" maxlength="6" required />
+          </label>
+          <label>
+            Address
+            <textarea id="clientAddress" required></textarea>
+          </label>
+          <div class="stack horizontal-stack">
+            <label>
+              Email
+              <input type="email" id="clientEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input type="text" id="clientAadhaar" maxlength="12" required />
+            </label>
+          </div>
+          <div class="stack horizontal-stack">
+            <label>
+              PAN Number
+              <input type="text" id="clientPan" maxlength="10" required />
+            </label>
+            <label>
+              Upload Client Image
+              <input type="file" id="clientImage" accept="image/*" />
+            </label>
+          </div>
+          <div class="stack horizontal-stack">
+            <label>
+              Auto Debit Card Number
+              <input type="text" id="clientDebitCard" readonly />
+            </label>
+            <label>
+              Expiry (MM/YY)
+              <input type="text" id="clientDebitCardExpiry" readonly />
+            </label>
+            <label>
+              CVV
+              <input type="text" id="clientDebitCardCvv" readonly />
+            </label>
+          </div>
+          <label>
+            Security PIN (5 digits)
+            <input type="text" id="clientPin" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Client</button>
+        </form>
+        <div id="clientResult" class="result hidden">
+          <h4>Client Created</h4>
+          <pre id="clientSummary"></pre>
+          <button class="btn secondary" id="downloadClientPdf">
+            Download Details (PDF)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      integrity="sha512-NaWTHo/8vQRVADADObCNoSV7BsrCnmStNFM34OjK4WuTdB4T/RJqaWc9Ypn0SAoZ91XAX+nePh...
+      
+      
+      
+      
+      "
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+          <button class="btn pill" data-panel="client-panel">
+            2. Create New Account (Clients)
+          </button>
+          <button class="btn pill" id="bankBalanceBtn">
+            3. Balance Checking (Bank Own Account)
+          </button>
+        </div>
+        <p id="bankBalanceDisplay" class="status"></p>
+        <div class="admin-grid">
+          <div class="card muted-card inline-card">
+            <h3>Employee Details</h3>
+            <div id="employeeList" class="record-list">
+              <p class="muted">No employees yet.</p>
+            </div>
+          </div>
+          <div class="card muted-card inline-card">
+            <h3>4. Credit Client Account (Admin to Client)</h3>
+            <p class="muted">Fund a client's account directly.</p>
+            <form id="adminCreditForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="creditClientId" required />
+              </label>
+              <label>
+                Amount to Credit (₹)
+                <input type="number" id="creditAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Credit Client</button>
+            </form>
+            <p id="adminCreditStatus" class="status"></p>
+          </div>
+          <div class="card muted-card inline-card">
+            <h3>Client Details</h3>
+            <div id="clientList" class="record-list">
+              <p class="muted">No clients yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="employeeSummaryDisplayArea" class="card muted-card hidden">
+          <h4>Employee Details</h4>
+          <p class="muted">Select 'View' next to an employee.</p>
+          <pre id="employeeSummaryContent"></pre>
+        </div>
+      </section>
+
+      <section id="employee-panel" class="card glass hidden">
+        <h3>Create Employee Account</h3>
+        <form id="employeeForm" class="form">
+          <div class="form__row">
+            <label>
+              Auto Employee ID
+              <input type="text" id="employeeId" readonly />
+            </label>
+            <label>
+              Position
+              <select id="employeePosition" required>
+                <option value="">Select</option>
+                <option value="Manager">Manager</option>
+                <option value="Assistant Manager">Assistant Manager</option>
+                <option value="Casher">Casher</option>
+                <option value="Officer">Officer</option>
+                <option value="Assistant Officer">Assistant Officer</option>
+              </select>
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Employee Name
+              <input type="text" id="employeeName" required />
+            </label>
+            <label>
+              Age
+              <input type="number" id="employeeAge" min="18" required />
+            </label>
+          </div>
+          <label>
+            Address
+            <input type="text" id="employeeAddress" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Email
+              <input type="email" id="employeeEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input
+                type="text"
+                id="employeeAadhaar"
+                minlength="12"
+                maxlength="12"
+                required
+              />
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Mobile Number (OTP verification)
+              <input type="tel" id="employeeMobile" pattern="[0-9]{10}" required />
+            </label>
+            <div class="otp-actions">
+              <button type="button" class="btn secondary" id="sendEmployeeOtp">
+                Send OTP
+              </button>
+              <input type="text" id="employeeOtp" placeholder="Enter OTP" required />
+            </div>
+          </div>
+          <div class="form__row">
+            <label>
+              Auto Salary (per month)
+              <input type="number" id="employeeSalary" readonly />
+            </label>
+            <label>
+              Auto Login Password (5 digits)
+              <input type="text" id="employeePassword" readonly />
+            </label>
+          </div>
+          <label>
+            Upload Photo
+            <input type="file" id="employeeImage" accept="image/*" />
+          </label>
+          <button type="submit" class="btn primary">Save Employee</button>
+        </form>
+        <div id="employeeResult" class="result hidden">
+          <h4>Employee Created</h4>
+          <pre id="employeeSummary"></pre>
+          <button class="btn secondary" id="downloadEmployeePdf">
+            Download Appointment Letter (PDF)
+          </button>
+        </div>
+      </section>
+
+      <section id="client-panel" class="card glass hidden">
+        <h3>Create Client Account</h3>
+        <form id="clientForm" class="form">
+          <div class="form__row">
+            <label>
+              Auto Client ID
+              <input type="text" id="clientId" readonly />
+            </label>
+            <label>
+              Account Type
+              <select id="clientAccountType" required>
+                <option value="">Select</option>
+                <option value="Savings">Savings</option>
+                <option value="Salary">Salary</option>
+                <option value="Current">Current</option>
+              </select>
+            </label>
+          </div>
+          <label> Client Name <input type="text" id="clientName" required /> </label>
+          <div class="form__row">
+            <label>
+              Age
+              <input type="number" id="clientAge" min="18" required />
+            </label>
+            <label>
+              Date of Birth
+              <input type="date" id="clientDob" required />
+            </label>
+          </div>
+          <label> Address <input type="text" id="clientAddress" required /> </label>
+          <div class="form__row">
+            <label>
+              Email
+              <input type="email" id="clientEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input
+                type="text"
+                id="clientAadhaar"
+                minlength="12"
+                maxlength="12"
+                required
+              />
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Mobile Number (OTP verification)
+              <input type="tel" id="clientMobile" pattern="[0-9]{10}" required />
+            </label>
+            <div class="otp-actions">
+              <button type="button" class="btn secondary" id="sendClientOtp">
+                Send OTP
+              </button>
+              <input type="text" id="clientOtp" placeholder="Enter OTP" required />
+            </div>
+          </div>
+          <div class="form__row">
+            <label>
+              PAN Number
+              <input type="text" id="clientPan" maxlength="10" required />
+            </label>
+            <label>
+              Upload Client Image
+              <input type="file" id="clientImage" accept="image/*" />
+            </label>
+          </div>
+          <label>
+            Auto Debit Card Number
+            <input type="text" id="clientDebitCard" readonly />
+          </label>
+          <label>
+            Security PIN (5 digits)
+            <input type="text" id="clientPin" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Client</button>
+        </form>
+        <div id="clientResult" class="result hidden">
+          <h4>Client Created</h4>
+          <pre id="clientSummary"></pre>
+          <button class="btn secondary" id="downloadClientPdf">
+            Download Details (PDF)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWTHo/8vQRVADADObCNoSV7BsrCnmStNFM34OjK4WuTdB4T/RJqaWc9Ypn0SAoZ91XAX+nePh
+      
+      
+      ... (omitted)
+
+    <script src="app.js"></script>
+  </body>
+</html>
+              <input type="number" id="employeeAge" min="18" required />
+            </label>
+          </div>
+          <label>
+            Address
+            <input type="text" id="employeeAddress" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Email
+              <input type="email" id="employeeEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input
+                type="text"
+                id="employeeAadhaar"
+                minlength="12"
+                maxlength="12"
+                required
+              />
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Mobile Number (OTP verification)
+              <input type="tel" id="employeeMobile" pattern="[0-9]{10}" required />
+            </label>
+            <div class="otp-actions">
+              <button type="button" class="btn secondary" id="sendEmployeeOtp">
+                Send OTP
+              </button>
+              <input type="text" id="employeeOtp" placeholder="Enter OTP" />
+            </div>
+          </div>
+          <label>
+            Upload Employee Image
+            <input type="file" id="employeeImage" accept="image/*" />
+          </label>
+          <label>
+            Salary (auto from position)
+            <input type="text" id="employeeSalary" readonly />
+          </label>
+          <label>
+            Employee Login Password (auto)
+            <input type="text" id="employeePassword" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Employee</button>
+        </form>
+        <div id="employeeResult" class="result hidden">
+          <h4>Employee Created</h4>
+          <pre id="employeeSummary"></pre>
+          <button class="btn secondary" id="downloadEmployeePdf">
+            Download Details & Appointment Letter (PDF)
+          </button><a href="btn secondary" download>
+    PDF கோப்பை தரவிறக்கம் செய்க
+</a>
+
+        </div>
+      </section>
+
+      <section id="client-panel" class="card glass hidden">
+        <h3>Create Client Account</h3>
+        <form id="clientForm" class="form">
+          <div class="form__row">
+            <label>
+              Auto Client ID
+              <input type="text" id="clientId" readonly />
+            </label>
+            <label>
+              Account Type
+              <select id="clientAccountType" required>
+                <option value="">Select</option>
+                <option value="Savings">Savings</option>
+                <option value="Salary">Salary</option>
+                <option value="Current">Current</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Client Name
+            <input type="text" id="clientName" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Age
+              <input type="number" id="clientAge" min="18" required />
+            </label>
+            <label>
+              Date of Birth
+              <input type="date" id="clientDob" required />
+            </label>
+          </div>
+          <label>
+            Address
+            <input type="text" id="clientAddress" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Email
+              <input type="email" id="clientEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input
+                type="text"
+                id="clientAadhaar"
+                minlength="12"
+                maxlength="12"
+                required
+              />
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Mobile Number (OTP verification)
+              <input type="tel" id="clientMobile" pattern="[0-9]{10}" required />
+            </label>
+            <div class="otp-actions">
+              <button type="button" class="btn secondary" id="sendClientOtp">
+                Send OTP
+              </button>
+              <input type="text" id="clientOtp" placeholder="Enter OTP" />
+            </div>
+          </div>
+          <div class="form__row">
+            <label>
+              PAN Card Number
+              <input type="text" id="clientPan" maxlength="10" required />
+            </label>
+            <label>
+              Upload Client Image
+              <input type="file" id="clientImage" accept="image/*" />
+            </label>
+          </div>
+          <label>
+            Auto Debit Card Number
+            <input type="text" id="clientDebitCard" readonly />
+          </label>
+          <label>
+            Security PIN (5 digits)
+            <input type="text" id="clientPin" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Client</button>
+        </form>
+        <div id="clientResult" class="result hidden">
+          <h4>Client Created</h4>
+          <pre id="clientSummary"></pre>
+          <button class="btn secondary" id="downloadClientPdf">
+            Download Details (PDF)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWTHo/Of0miEJeZVrDCTnhgypKekJy5o+1OtSWT8gJtIhXCTITVEWilQoNqT9XyM54q9WlH0I1GtIsfRSAxiw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+
+
+

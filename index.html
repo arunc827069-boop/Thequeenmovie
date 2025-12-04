@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All in One Money Bank</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="home">
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Welcome to</p>
+        <h1>All in One Money 💰 Bank</h1>
+        <p class="subtitle">Your money is safe and secure</p>
+        <div class="hero__login card">
+          <h2>Secure Login</h2>
+          <p class="muted">
+            Enter your Bank ID and password/PIN. We will detect your role automatically.
+          </p>
+          <form id="loginForm" class="form">
+            <label>
+              Bank ID
+              <input type="text" id="loginId" placeholder="e.g. 111111, EMP0001, CLT0001" required />
+            </label>
+            <label>
+              Password / PIN
+              <input type="password" id="loginPassword" minlength="4" required />
+            </label>
+            <button type="submit" class="btn primary">Access Portal</button>
+          </form>
+          <p id="loginStatus" class="status"></p>
+        </div>
+        <div class="hero__cta">
+          <a class="btn primary" href="admin.html">Admin Portal</a>
+          <a class="btn" href="employee.html">Employee Portal</a>
+          <a class="btn" href="client.html">Client Portal</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+
+
+
+      <section class="card glass info-card">
+        <h3>All in One Banking</h3>
+        <p>
+          Seamless control for admins, guided workflows for employees, and full transparency for clients—now routed through dedicated workspaces after you log in.
+        </p>
+        <ul class="pill-list">
+          <li>Admin: onboard employees & clients, track bank balance</li>
+          <li>Employee: update client KYC, manage balances & statements</li>
+          <li>Client: transfer funds, download statements, update profile</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWTHo/Of0miEJeZVrDCTnhgypKekJy5o+1OtSWT8gJtIhXCTITVEWilQoNqT9XyM54q9WlH0I1GtIsfRSAxiw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee | All in One Money Bank</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="employee">
+    <header class="hero hero-sub">
+      <div class="hero__content">
+        <p class="eyebrow">Employee Workspace</p>
+        <h1>Serve Every Client With Care</h1>
+        <p class="subtitle">Create new client accounts, update profiles, and manage balances.</p>
+        <div class="hero__cta">
+          <a class="btn" href="index.html">Switch User</a>
+          <a class="btn secondary" href="client.html">Client Portal</a>
+          <a class="btn secondary" href="admin.html">Admin Portal</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="employee-dashboard" class="card glass hidden">
+        <h3>Employee Home</h3>
+        <div class="stack">
+          <a class="btn pill" href="#client-panel">Create New Client Form</a>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card muted-card">
+            <h4>Client Details & Changes</h4>
+            <form id="clientLookupForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="lookupClientId" required />
+              </label>
+              <button class="btn secondary" type="submit">View Details</button>
+            </form>
+            <div id="clientDetailsView" class="result hidden"></div>
+            <form id="clientUpdateForm" class="form hidden">
+              <p class="muted">Update Allowed Fields</p>
+              <label>
+                Name
+                <input type="text" id="updateClientName" />
+              </label>
+              <label>
+                Date of Birth
+                <input type="date" id="updateClientDob" />
+              </label>
+              <label>
+                Address
+                <input type="text" id="updateClientAddress" />
+              </label>
+              <label>
+                Mobile Number
+                <input type="tel" id="updateClientMobile" pattern="[0-9]{10}" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="updateClientEmail" />
+              </label>
+              <label>
+                Change Security PIN (5 digits)
+                <input type="text" id="updateClientPin" minlength="5" maxlength="5" />
+              </label>
+              <label>
+                Upload New Image
+                <input type="file" id="updateClientImage" accept="image/*" />
+              </label>
+              <button class="btn primary" type="submit">Save Changes</button>
+            </form>
+          </div>
+          <div class="card muted-card">
+            <h4>Client Balance Tools</h4>
+            <form id="clientBalanceForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="balanceClientId" required />
+              </label>
+              <button class="btn secondary" type="submit">Check Balance</button>
+            </form>
+            <p id="clientBalanceDisplay" class="status"></p>
+
+            <h4 style="margin-top: 1.5rem;">Client Deposit / Credit (Employee to Client)</h4>
+            <form id="employeeCreditForm" class="form">
+              <label>
+                Client ID to Credit
+                <input type="text" id="employeeCreditClientId" required />
+              </label>
+              <label>
+                Amount to Deposit (₹)
+                <input type="number" id="employeeCreditAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Process Deposit</button>
+            </form>
+            <p id="employeeCreditStatus" class="status"></p>
+
+            <h4 style="margin-top: 1.5rem;">Client Debit (Client to Bank)</h4>
+            <form id="clientToBankForm" class="form">
+              <label>
+                Client ID to Debit
+                <input type="text" id="transferClientId" required />
+              </label>
+              <label>
+                Amount to Debit (₹)
+                <input type="number" id="transferAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Transfer to Bank</button>
+            </form>
+            <p id="clientTransferMessage" class="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="client-panel" class="card glass hidden">
+        </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWTHo/8vQRVADADObCNoSV7BsrCnmStNFM34OjK4WuTdB4T/RJqaWc9Ypn0SAoZ91XAX+nePh
+      
+      
+      ... (omitted)
+
+    <script src="app.js"></script>
+  </body>
+</html>
+            <h4>Client Details & Changes</h4>
+            <form id="clientLookupForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="lookupClientId" required />
+              </label>
+              <button class="btn secondary" type="submit">View Details</button>
+            </form>
+            <div id="clientDetailsView" class="result hidden"></div>
+            <form id="clientUpdateForm" class="form hidden">
+              <p class="muted">Update Allowed Fields</p>
+              <label>
+                Name
+                <input type="text" id="updateClientName" />
+              </label>
+              <label>
+                Date of Birth
+                <input type="date" id="updateClientDob" />
+              </label>
+              <label>
+                Address
+                <input type="text" id="updateClientAddress" />
+              </label>
+              <label>
+                Mobile Number
+                <input type="tel" id="updateClientMobile" pattern="[0-9]{10}" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="updateClientEmail" />
+              </label>
+              <label>
+                Change Security PIN (5 digits)
+                <input type="text" id="updateClientPin" minlength="5" maxlength="5" />
+              </label>
+              <label>
+                Upload New Image
+                <input type="file" id="updateClientImage" accept="image/*" />
+              </label>
+              <button class="btn primary" type="submit">Save Changes</button>
+            </form>
+          </div>
+          <div class="card muted-card">
+            <h4>Client Balance Tools</h4>
+            <form id="clientBalanceForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="balanceClientId" required />
+              </label>
+              <button class="btn secondary" type="submit">Check Balance</button>
+            </form>
+            <p id="clientBalanceDisplay" class="status"></p>
+            <form id="clientToBankForm" class="form">
+              <label>
+                Client ID
+                <input type="text" id="transferClientId" required />
+              </label>
+              <label>
+                Amount to Move to Bank
+                <input type="number" id="transferAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">
+                Send to Bank Own Account
+              </button>
+            </form>
+            <p id="clientTransferMessage" class="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="client-panel" class="card glass">
+        <h3>Create Client Account</h3>
+        <form id="clientForm" class="form">
+          <div class="form__row">
+            <label>
+              Auto Client ID
+              <input type="text" id="clientId" readonly />
+            </label>
+            <label>
+              Account Type
+              <select id="clientAccountType" required>
+                <option value="">Select</option>
+                <option value="Savings">Savings</option>
+                <option value="Salary">Salary</option>
+                <option value="Current">Current</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Client Name
+            <input type="text" id="clientName" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Age
+              <input type="number" id="clientAge" min="18" required />
+            </label>
+            <label>
+              Date of Birth
+              <input type="date" id="clientDob" required />
+            </label>
+          </div>
+          <label>
+            Address
+            <input type="text" id="clientAddress" required />
+          </label>
+          <div class="form__row">
+            <label>
+              Email
+              <input type="email" id="clientEmail" required />
+            </label>
+            <label>
+              Aadhaar Number
+              <input
+                type="text"
+                id="clientAadhaar"
+                minlength="12"
+                maxlength="12"
+                required
+              />
+            </label>
+          </div>
+          <div class="form__row">
+            <label>
+              Mobile Number (OTP verification)
+              <input type="tel" id="clientMobile" pattern="[0-9]{10}" required />
+            </label>
+            <div class="otp-actions">
+              <button type="button" class="btn secondary" id="sendClientOtp">
+                Send OTP
+              </button>
+              <input type="text" id="clientOtp" placeholder="Enter OTP" />
+            </div>
+          </div>
+          <div class="form__row">
+            <label>
+              PAN Card Number
+              <input type="text" id="clientPan" maxlength="10" required />
+            </label>
+            <label>
+              Upload Client Image
+              <input type="file" id="clientImage" accept="image/*" />
+            </label>
+          </div>
+          <label>
+            Auto Debit Card Number
+            <input type="text" id="clientDebitCard" readonly />
+          </label>
+          <label>
+            Security PIN (5 digits)
+            <input type="text" id="clientPin" readonly />
+          </label>
+          <button type="submit" class="btn primary">Save Client</button>
+        </form>
+        <div id="clientResult" class="result hidden">
+          <h4>Client Created</h4>
+          <pre id="clientSummary"></pre>
+          <button class="btn secondary" id="downloadClientPdf">
+            Download Details (PDF)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-NaWTHo/Of0miEJeZVrDCTnhgypKekJy5o+1OtSWT8gJtIhXCTITVEWilQoNqT9XyM54q9WlH0I1GtIsfRSAxiw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+

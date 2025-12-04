@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client | All in One Money Bank</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-page="client">
+    <header class="hero hero-sub">
+      <div class="hero__content">
+        <p class="eyebrow">Client Portal</p>
+        <h1>Your Money, Your Control</h1>
+        <p class="subtitle">
+          View balances, transfer funds, and download statements instantly.
+        </p>
+        <div class="hero__cta">
+          <a class="btn" href="index.html">Switch User</a>
+          <a class="btn secondary" href="employee.html">Employee Helpdesk</a>
+          <a class="btn secondary" href="admin.html">Admin Portal</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="client-dashboard" class="card glass hidden">
+        <h3>Client Home</h3>
+        <div class="stack horizontal-stack">
+          <button class="btn pill active" data-client-tab="details">
+            Account Details
+          </button>
+          <button class="btn pill" data-client-tab="transfer">
+            Money Transfer
+          </button>
+          <button class="btn pill" data-client-tab="statement">
+            Statement
+          </button>
+        </div>
+        <div class="client-tabs">
+          <div
+            id="clientTabDetails"
+            class="client-tab"
+            data-client-tab="details"
+          >
+            <pre id="clientDetailsSummary"></pre>
+            <div class="stack horizontal-stack">
+              <button class="btn primary" id="downloadDebitCardPdf">
+                Download Debit Card PDF
+              </button>
+            </div>
+            <button class="btn secondary" id="downloadClientPdf">
+              Download Details PDF
+            </button>
+          </div>
+
+          <div
+            id="clientTabTransfer"
+            class="client-tab hidden"
+            data-client-tab="transfer"
+          >
+            <h4>Internal Transfer (Within All in One Bank)</h4>
+            <form id="clientTransferForm" class="form">
+              <label>
+                Receiver Client ID (CLTxxxx)
+                <input type="text" id="transferReceiverId" required />
+              </label>
+              <label>
+                Amount to Transfer (₹)
+                <input type="number" id="transferAmount" min="1" required />
+              </label>
+              <button class="btn primary" type="submit">Transfer Funds</button>
+            </form>
+            <p id="clientTransferStatus" class="status"></p>
+
+            <h4 style="margin-top: 2rem;">
+              External Transfer (Other Bank - NEFT/RTGS)
+            </h4>
+            <form id="externalTransferForm" class="form">
+              <label>
+                Receiver Account Number
+                <input type="text" id="externalReceiverAccount" required />
+              </label>
+              <label>
+                IFSC Code
+                <input
+                  type="text"
+                  id="externalIfscCode"
+                  maxlength="11"
+                  required
+                />
+              </label>
+              <label>
+                Receiver Name
+                <input type="text" id="externalReceiverName" required />
+              </label>
+              <label>
+                Amount to Transfer (₹)
+                <input
+                  type="number"
+                  id="externalTransferAmount"
+                  min="1"
+                  required
+                />
+              </label>
+              <button class="btn primary" type="submit">
+                Transfer to Other Bank
+              </button>
+            </form>
+            <p id="externalTransferStatus" class="status"></p>
+            </div>
+
+          <div
+            id="clientTabStatement"
+            class="client-tab hidden"
+            data-client-tab="statement"
+          >
+            <h4>Statement History</h4>
+            <form id="clientStatementDaysForm" class="form">
+              <label>
+                Enter Days Back (e.g., 90 for 3 months)
+                <input
+                  type="number"
+                  id="clientStatementDaysInput"
+                  min="1"
+                  max="365"
+                  value="30"
+                  required
+                />
+              </label>
+              <button class="btn secondary" type="submit">
+                View Statement
+              </button>
+            </form>
+            <div id="clientStatementDaysResult" class="result" style="margin-top: 1rem;"></div>
+            
+            <button class="btn primary" id="downloadStatementPdf">
+              Download Statement PDF
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card glass contact-card">
+      <h3>Contact Us</h3>
+      <p><strong>Arun Chandran</strong>, Bank Head</p>
+      <p>Arankam Kuppam, Pulicat, Ponneri, 601205</p>
+      <p>Email: support@allinonemoneybank.com | Phone: +91 90000 00000</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      integrity="sha512-NaWTHo/8vQRVADADObCNoSV7BsrCnmStNFM34OjK4WuTdB4T/RJqaWc9Ypn0SAoZ91XAX+nePh...
+      
+      
+      
+      
+      "
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
